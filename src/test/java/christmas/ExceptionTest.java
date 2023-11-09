@@ -2,6 +2,8 @@ package christmas;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
+import christmas.domain.Calendar;
+import christmas.domain.Reservation;
 import christmas.view.InputValidation;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
