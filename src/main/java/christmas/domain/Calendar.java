@@ -1,4 +1,4 @@
-package christmas;
+package christmas.domain;
 
 import christmas.view.ErrorMessage;
 import java.time.LocalDate;
