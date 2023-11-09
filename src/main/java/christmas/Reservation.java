@@ -4,13 +4,13 @@ import java.time.LocalDate;
 
 public class Reservation {
 
-    private LocalDate reservationDate;
+    private LocalDate visitDate;
 
-    public void registerReservationDate(Calendar calendar, int day) {
-        reservationDate = LocalDate.of(calendar.getYear(), calendar.getMonth(), day);
+    public void registerVisitDate(Calendar calendar, int day) {
+        visitDate = LocalDate.of(calendar.getYear(), calendar.getMonth(), day);
     }
 
-    public int getReservationDay() {
-        return reservationDate.getDayOfMonth();
+    public int getVisitDay() {
+        return visitDate.getDayOfMonth();
     }
 }

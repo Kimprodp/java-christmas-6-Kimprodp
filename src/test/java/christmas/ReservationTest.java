@@ -16,9 +16,9 @@ public class ReservationTest {
         int date = 17;
 
         //when
-        reservation.registerReservationDate(calendar, date);
+        reservation.registerVisitDate(calendar, date);
 
         //then
-        assertThat(reservation.getReservationDay()).isEqualTo(17);
+        assertThat(reservation.getVisitDay()).isEqualTo(17);
     }
 }
