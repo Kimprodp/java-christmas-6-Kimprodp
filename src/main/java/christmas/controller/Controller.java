@@ -1,5 +1,7 @@
-package christmas;
+package christmas.controller;
 
+import christmas.domain.Calendar;
+import christmas.domain.Reservation;
 import christmas.view.InputValidation;
 import christmas.view.InputView;
 
@@ -18,8 +20,10 @@ public class Controller {
     }
 
     public void run() {
-        String input = inputView.readDate(calendar.getMonth());
-        registerVisitDate(input);
+        String inputDate = inputView.readDate(calendar.getMonth());
+        registerVisitDate(inputDate);
+
+        String inputMenu = inputView.readMenu();
 
 
     }
@@ -30,6 +34,14 @@ public class Controller {
             reservation.registerVisitDate(calendar, date);
         } catch (IllegalArgumentException e) {
             registerVisitDate(inputView.readAgain(e.getMessage()));
+        }
+    }
+
+    private void registerMenu(String input) {
+        try {
+
+        } catch (IllegalArgumentException e) {
+            registerMenu(inputView.readAgain(e.getMessage()));
         }
     }
 }
