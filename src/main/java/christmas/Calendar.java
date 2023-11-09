@@ -1,26 +1,33 @@
 package christmas;
 
+import christmas.view.ErrorMessage;
 import java.time.LocalDate;
 
 public class Calendar {
 
-    private final LocalDate now;
-    private final int year;
-    private final int month;
+    private final LocalDate date;
 
     public Calendar() {
-        now = LocalDate.now();
-        year = now.getYear();
-        month = now.getMonthValue();
+        date = LocalDate.of(2023, 12, 1);
     }
 
     public int getYear() {
-        return year;
+        return date.getYear();
     }
 
     public int getMonth() {
-        return month;
+        return date.getMonthValue();
     }
 
+    public void validateVisitDate(int day) {
+        LocalDate startDate = date.withDayOfMonth(1);
+        LocalDate lastDate = date.withDayOfMonth(date.lengthOfMonth());
+        int startDay = startDate.getDayOfMonth();
+        int lastDay = lastDate.getDayOfMonth();
+
+        if (day < startDay || day > lastDay) {
+            throw new IllegalArgumentException(ErrorMessage.DATE_ERROR);
+        }
+    }
 
 }
