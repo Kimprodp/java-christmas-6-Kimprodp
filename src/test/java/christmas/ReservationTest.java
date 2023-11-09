@@ -7,9 +7,9 @@ import org.junit.jupiter.api.Test;
 
 public class ReservationTest {
 
-    @DisplayName("예약한 날짜로 예약이 등록되어야 함")
+    @DisplayName("입력된 날짜로 방문일이 등록 되어야 함")
     @Test
-    void confirmReservationDateRegistration() {
+    void registerVisitDateByInputDate() {
         //given
         Calendar calendar = new Calendar();
         Reservation reservation = new Reservation();
