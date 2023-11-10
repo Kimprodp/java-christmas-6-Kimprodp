@@ -19,19 +19,7 @@ public class ExceptionTest {
         //when, then
         assertThatThrownBy(() -> inputProcessor.convertDate(""))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
-    }
-
-    @DisplayName("방문일 입력 시, 숫자가 입력되지 않을 경우 예외가 발생함")
-    @Test
-    void inputDateExceptionByNotNumber() {
-        //given
-        InputProcessor inputProcessor = new InputProcessor();
-
-        //when, then
-        assertThatThrownBy(() -> inputProcessor.convertDate("a"))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
+                .hasMessageContaining("[ERROR] 입력값이 없습니다. 다시 입력해 주세요.");
     }
 
     @DisplayName("방문일 입력 시, 공백이 있을 경우 예외가 발생함")
@@ -42,6 +30,18 @@ public class ExceptionTest {
 
         //when, then
         assertThatThrownBy(() -> inputProcessor.convertDate("1 2"))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("[ERROR] 입력값에 공백이 있습니다. 다시 입력해 주세요.");
+    }
+
+    @DisplayName("방문일 입력 시, 숫자가 입력되지 않을 경우 예외가 발생함")
+    @Test
+    void inputDateExceptionByNotNumber() {
+        //given
+        InputProcessor inputProcessor = new InputProcessor();
+
+        //when, then
+        assertThatThrownBy(() -> inputProcessor.convertDate("a"))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
     }
