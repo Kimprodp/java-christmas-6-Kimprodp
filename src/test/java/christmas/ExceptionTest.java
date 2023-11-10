@@ -119,4 +119,16 @@ public class ExceptionTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
     }
+
+    @DisplayName("주문 메뉴 입력 시, 중복된 메뉴명이 있을 경우 예외가 발생함")
+    @Test
+    void inputMenuExceptionByDuplicate() {
+        //given
+        InputProcessor inputProcessor = new InputProcessor();
+
+        //when, then
+        assertThatThrownBy(() -> inputProcessor.convertMenu("해산물파스타-1,해산물파스타-2"))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+    }
 }
