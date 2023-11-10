@@ -68,18 +68,25 @@ public class InputProcessor {
         List<String> separatedByComma = Arrays.asList(input.split(COMMA));
         for (String value : separatedByComma) {
             List<String> separateValue = Arrays.asList(value.split(HYPHEN));
-            int menuQuantity = validateInteger(separateValue.get(1));
+            int menuQuantity = validateNumberOfMenuQuantity(separateValue.get(1));
             separatedByHyphen.put(separateValue.get(0), menuQuantity);
         }
+        validateDuplicateOfMenuName(separatedByComma.size(), separatedByHyphen.size());
     }
 
     private void separateInputWithoutCommas(String input, HashMap<String, Integer> separatedByHyphen) {
         List<String> separateValue = Arrays.asList(input.split(HYPHEN));
-        int menuQuantity = validateInteger(separateValue.get(1));
+        int menuQuantity = validateNumberOfMenuQuantity(separateValue.get(1));
         separatedByHyphen.put(separateValue.get(0), menuQuantity);
     }
 
-    private int validateInteger(String input) {
+    private void validateDuplicateOfMenuName(int firstSize, int secondSize) {
+        if (firstSize != secondSize) {
+            throw new IllegalArgumentException(ErrorMessage.MENU_ERROR);
+        }
+    }
+
+    private int validateNumberOfMenuQuantity(String input) {
         int menuQuantity;
         try {
             menuQuantity = Integer.parseInt(input);
@@ -88,53 +95,4 @@ public class InputProcessor {
         }
         return menuQuantity;
     }
-
-
-
-
-
-
-
-
-
-
-/*
-    private List<String> validateComma(String input) {
-        if (!input.contains(COMMA)) {
-            throw new IllegalArgumentException(ErrorMessage.NOT_COMMA);
-        }
-        return Arrays.asList(input.split(COMMA));
-    }
-
-
-    private void validateHyphen2(String input, List<String> separatedByComma, HashMap<String, String> separatedByHyphen) {
-        if (input.contains(COMMA)) {
-
-        }
-
-
-
-
-        try {
-            for (String value : separatedByComma) {
-                List<String> separateValue = Arrays.asList(value.split(HYPHEN));
-                separatedByHyphen.put(separateValue.get(0), separateValue.get(1));
-            }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new IllegalArgumentException(ErrorMessage.NOT_HYPHEN);
-        }
-    }
-
-
-    private void validateHyphen(List<String> separatedByComma) {
-        for (String value : separatedByComma) {
-            if (!value.contains(HYPHEN)) {
-                throw new IllegalArgumentException(ErrorMessage.NOT_HYPHEN);
-            }
-
-        }
-    }
-
-     */
-
 }
