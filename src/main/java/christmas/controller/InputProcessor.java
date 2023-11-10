@@ -66,18 +66,22 @@ public class InputProcessor {
 
     private void separateInputWithCommas(String input, HashMap<String, Integer> separatedByHyphen) {
         List<String> separatedByComma = Arrays.asList(input.split(COMMA));
+
         for (String value : separatedByComma) {
             List<String> separateValue = Arrays.asList(value.split(HYPHEN));
+            String menuName = separateValue.get(0);
             int menuQuantity = validateNumberOfMenuQuantity(separateValue.get(1));
-            separatedByHyphen.put(separateValue.get(0), menuQuantity);
+            separatedByHyphen.put(menuName, menuQuantity);
         }
+
         validateDuplicateOfMenuName(separatedByComma.size(), separatedByHyphen.size());
     }
 
     private void separateInputWithoutCommas(String input, HashMap<String, Integer> separatedByHyphen) {
         List<String> separateValue = Arrays.asList(input.split(HYPHEN));
+        String menuName = separateValue.get(0);
         int menuQuantity = validateNumberOfMenuQuantity(separateValue.get(1));
-        separatedByHyphen.put(separateValue.get(0), menuQuantity);
+        separatedByHyphen.put(menuName, menuQuantity);
     }
 
     private void validateDuplicateOfMenuName(int firstSize, int secondSize) {
@@ -87,12 +91,10 @@ public class InputProcessor {
     }
 
     private int validateNumberOfMenuQuantity(String input) {
-        int menuQuantity;
         try {
-            menuQuantity = Integer.parseInt(input);
+            return  Integer.parseInt(input);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(ErrorMessage.MENU_ERROR);
         }
-        return menuQuantity;
     }
 }

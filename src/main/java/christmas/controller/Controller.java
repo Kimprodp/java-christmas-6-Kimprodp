@@ -1,6 +1,7 @@
 package christmas.controller;
 
 import christmas.domain.Calendar;
+import christmas.domain.Menu;
 import christmas.domain.Reservation;
 import christmas.view.InputView;
 import java.util.HashMap;
@@ -26,7 +27,6 @@ public class Controller {
         String inputMenu = inputView.readMenu();
         registerMenu(inputMenu);
 
-
     }
 
     private void registerVisitDate(String input) {
@@ -40,8 +40,8 @@ public class Controller {
 
     private void registerMenu(String input) {
         try {
-            HashMap<String, Integer> separatedByHyphen = inputProcessor.convertMenu(input);
-
+            HashMap<String, Integer> separatedValue = inputProcessor.convertMenu(input);
+            reservation.registerOrderMenu(separatedValue);
         } catch (IllegalArgumentException e) {
             registerMenu(inputView.readAgain(e.getMessage()));
         }
