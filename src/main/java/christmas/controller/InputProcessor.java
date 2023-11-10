@@ -1,8 +1,10 @@
-package christmas.view;
+package christmas.controller;
 
-public class InputValidation {
+import christmas.view.ErrorMessage;
 
-    public int validateNumber(String input) {
+public class InputProcessor {
+
+    public int convertDate(String input) {
         try {
             Integer.parseInt(input);
         } catch (NumberFormatException e) {

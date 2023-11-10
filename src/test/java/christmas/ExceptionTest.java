@@ -4,7 +4,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 import christmas.domain.Calendar;
 import christmas.domain.Reservation;
-import christmas.view.InputValidation;
+import christmas.controller.InputProcessor;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -14,10 +14,10 @@ public class ExceptionTest {
     @Test
     void inputDateExceptionByEmpty() {
         //given
-        InputValidation inputValidation = new InputValidation();
+        InputProcessor inputProcessor = new InputProcessor();
 
         //when, then
-        assertThatThrownBy(() -> inputValidation.validateNumber(""))
+        assertThatThrownBy(() -> inputProcessor.convertDate(""))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
     }
@@ -26,10 +26,10 @@ public class ExceptionTest {
     @Test
     void inputDateExceptionByNotNumber() {
         //given
-        InputValidation inputValidation = new InputValidation();
+        InputProcessor inputProcessor = new InputProcessor();
 
         //when, then
-        assertThatThrownBy(() -> inputValidation.validateNumber("a"))
+        assertThatThrownBy(() -> inputProcessor.convertDate("a"))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
     }
@@ -38,10 +38,10 @@ public class ExceptionTest {
     @Test
     void inputDateExceptionByBlank() {
         //given
-        InputValidation inputValidation = new InputValidation();
+        InputProcessor inputProcessor = new InputProcessor();
 
         //when, then
-        assertThatThrownBy(() -> inputValidation.validateNumber("1 2"))
+        assertThatThrownBy(() -> inputProcessor.convertDate("1 2"))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
     }
