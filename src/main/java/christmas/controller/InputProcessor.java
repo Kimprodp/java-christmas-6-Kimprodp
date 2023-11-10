@@ -51,7 +51,7 @@ public class InputProcessor {
 
     private void validateHyphen(String input) {
         if (!input.contains(HYPHEN)) {
-            throw new IllegalArgumentException(ErrorMessage.NOT_HYPHEN);
+            throw new IllegalArgumentException(ErrorMessage.MENU_ERROR);
         }
     }
 
@@ -84,7 +84,7 @@ public class InputProcessor {
         try {
             menuQuantity = Integer.parseInt(input);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(ErrorMessage.NOT_MenuQuantity_Integer);
+            throw new IllegalArgumentException(ErrorMessage.MENU_ERROR);
         }
         return menuQuantity;
     }
