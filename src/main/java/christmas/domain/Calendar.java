@@ -1,6 +1,5 @@
 package christmas.domain;
 
-import christmas.view.ErrorMessage;
 import java.time.LocalDate;
 
 public class Calendar {
@@ -19,15 +18,12 @@ public class Calendar {
         return date.getMonthValue();
     }
 
-    public void validateVisitDate(int day) {
+    public boolean isDateAvailable(int day) {
         LocalDate startDate = date.withDayOfMonth(1);
         LocalDate lastDate = date.withDayOfMonth(date.lengthOfMonth());
         int startDay = startDate.getDayOfMonth();
         int lastDay = lastDate.getDayOfMonth();
 
-        if (day < startDay || day > lastDay) {
-            throw new IllegalArgumentException(ErrorMessage.DATE_ERROR);
-        }
+        return (day >= startDay && day <= lastDay);
     }
-
 }
