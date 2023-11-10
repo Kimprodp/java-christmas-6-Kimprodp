@@ -2,7 +2,7 @@ package christmas.controller;
 
 import christmas.view.ErrorMessage;
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class InputProcessor {
@@ -18,12 +18,12 @@ public class InputProcessor {
         return Integer.parseInt(input);
     }
 
-    public HashMap<String, Integer> convertMenu(String input) {
+    public LinkedHashMap<String, Integer> convertMenu(String input) {
         validateEmpty(input);
         validateBlank(input);
         validateHyphen(input);
 
-        HashMap<String, Integer> separatedByHyphen = new HashMap<>();
+        LinkedHashMap<String, Integer> separatedByHyphen = new LinkedHashMap<>();
         separateHyphen(input, separatedByHyphen);
 
         return separatedByHyphen;
@@ -55,7 +55,7 @@ public class InputProcessor {
         }
     }
 
-    private void separateHyphen(String input, HashMap<String, Integer> separatedByHyphen) {
+    private void separateHyphen(String input, LinkedHashMap<String, Integer> separatedByHyphen) {
         if (input.contains(COMMA)) {
             separateInputWithCommas(input, separatedByHyphen);
         }
@@ -64,7 +64,7 @@ public class InputProcessor {
         }
     }
 
-    private void separateInputWithCommas(String input, HashMap<String, Integer> separatedByHyphen) {
+    private void separateInputWithCommas(String input, LinkedHashMap<String, Integer> separatedByHyphen) {
         List<String> separatedByComma = Arrays.asList(input.split(COMMA));
 
         for (String value : separatedByComma) {
@@ -77,7 +77,7 @@ public class InputProcessor {
         validateDuplicateOfMenuName(separatedByComma.size(), separatedByHyphen.size());
     }
 
-    private void separateInputWithoutCommas(String input, HashMap<String, Integer> separatedByHyphen) {
+    private void separateInputWithoutCommas(String input, LinkedHashMap<String, Integer> separatedByHyphen) {
         List<String> separateValue = Arrays.asList(input.split(HYPHEN));
         String menuName = separateValue.get(0);
         int menuQuantity = validateNumberOfMenuQuantity(separateValue.get(1));

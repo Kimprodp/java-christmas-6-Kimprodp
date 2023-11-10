@@ -4,18 +4,21 @@ import christmas.domain.Calendar;
 import christmas.domain.Menu;
 import christmas.domain.Reservation;
 import christmas.view.InputView;
-import java.util.HashMap;
+import christmas.view.OutputView;
+import java.util.LinkedHashMap;
 
 public class Controller {
 
-    private InputView inputView;
-    private InputProcessor inputProcessor;
-    private Calendar calendar;
-    private Menu menu;
-    private Reservation reservation;
+    private final InputView inputView;
+    private final OutputView outputView;
+    private final InputProcessor inputProcessor;
+    private final Calendar calendar;
+    private final Menu menu;
+    private final Reservation reservation;
 
     public Controller() {
         inputView = new InputView();
+        outputView = new OutputView();
         inputProcessor = new InputProcessor();
         calendar = new Calendar();
         menu = new Menu();
@@ -28,6 +31,8 @@ public class Controller {
 
         String inputMenu = inputView.readMenu();
         registerMenu(inputMenu);
+
+        showOrderMenu();
 
     }
 
@@ -42,10 +47,15 @@ public class Controller {
 
     private void registerMenu(String input) {
         try {
-            HashMap<String, Integer> orderMenu = inputProcessor.convertMenu(input);
+            LinkedHashMap<String, Integer> orderMenu = inputProcessor.convertMenu(input);
             reservation.registerOrderMenu(menu, orderMenu);
         } catch (IllegalArgumentException e) {
             registerMenu(inputView.readAgain(e.getMessage()));
         }
+    }
+
+    private void showOrderMenu() {
+        outputView.printEventPreview();
+        outputView.printMenu(reservation.getOrderMenu());
     }
 }

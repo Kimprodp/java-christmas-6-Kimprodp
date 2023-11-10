@@ -9,7 +9,6 @@ public class InputView {
     private static final String ASK_MENU = "주문하실 메뉴를 메뉴와 개수를 알려 주세요.";
     private static final String ASK_MENU_EG = " (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)";
 
-
     public String readDate(int month) {
         System.out.println(String.format(WELCOME_EVENT_PLANER, month));
         System.out.println(String.format(ASK_DATE_OF_VISIT, month));

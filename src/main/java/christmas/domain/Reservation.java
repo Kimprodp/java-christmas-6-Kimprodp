@@ -2,7 +2,7 @@ package christmas.domain;
 
 import christmas.view.ErrorMessage;
 import java.time.LocalDate;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class Reservation {
 
@@ -10,7 +10,7 @@ public class Reservation {
     private static final int MAX_ORDER_QUANTITY = 20;
 
     private LocalDate visitDate;
-    private HashMap<String, Integer> orderMenu;
+    private LinkedHashMap<String, Integer> orderMenu;
     private int orderAmount;
 
     public void registerVisitDate(Calendar calendar, int day) {
@@ -18,7 +18,7 @@ public class Reservation {
         visitDate = LocalDate.of(calendar.getYear(), calendar.getMonth(), day);
     }
 
-    public void registerOrderMenu(Menu menu, HashMap<String, Integer> orderMenu) {
+    public void registerOrderMenu(Menu menu, LinkedHashMap<String, Integer> orderMenu) {
         validateAvailableOrder(menu, orderMenu);
         validateAllBeverage(menu, orderMenu);
         validateMinOrderQuantity(orderMenu);
@@ -28,6 +28,10 @@ public class Reservation {
 
     public int getVisitDay() {
         return visitDate.getDayOfMonth();
+    }
+
+    public LinkedHashMap<String, Integer> getOrderMenu() {
+        return orderMenu;
     }
 
     public void calculateOrderAmount(Menu menu) {
@@ -42,25 +46,25 @@ public class Reservation {
         }
     }
 
-    private void validateAvailableOrder(Menu menu, HashMap<String, Integer> orderMenu) {
+    private void validateAvailableOrder(Menu menu, LinkedHashMap<String, Integer> orderMenu) {
         if (!orderMenu.keySet().stream().allMatch(menu::isContain)) {
             throw new IllegalArgumentException(ErrorMessage.MENU_ERROR);
         }
     }
 
-    private void validateAllBeverage(Menu menu, HashMap<String, Integer> orderMenu) {
+    private void validateAllBeverage(Menu menu, LinkedHashMap<String, Integer> orderMenu) {
         if (orderMenu.keySet().stream().allMatch(menu::isAllBeverage)) {
             throw new IllegalArgumentException(ErrorMessage.MENU_ERROR);
         }
     }
 
-    private void validateMinOrderQuantity(HashMap<String, Integer> orderMenu) {
+    private void validateMinOrderQuantity(LinkedHashMap<String, Integer> orderMenu) {
         if (orderMenu.values().stream().anyMatch(n -> n < MIN_ORDER_QUANTITY)) {
             throw new IllegalArgumentException(ErrorMessage.MENU_ERROR);
         }
     }
 
-    private void validateMaxOrderQuantity(HashMap<String, Integer> orderMenu) {
+    private void validateMaxOrderQuantity(LinkedHashMap<String, Integer> orderMenu) {
         int totalOrderQuantity = orderMenu.values().stream()
                 .mapToInt(Integer::intValue)
                 .sum();

@@ -6,7 +6,7 @@ import christmas.domain.Calendar;
 import christmas.domain.Menu;
 import christmas.domain.Reservation;
 import christmas.controller.InputProcessor;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -140,7 +140,7 @@ public class ExceptionTest {
         //given
         Menu menu = new Menu();
         Reservation reservation = new Reservation();
-        HashMap<String, Integer> orderMenu = new HashMap<>();
+        LinkedHashMap<String, Integer> orderMenu = new LinkedHashMap<>();
         orderMenu.put("해산물파스타", 1);
         orderMenu.put("라면", 1);
 
@@ -156,7 +156,7 @@ public class ExceptionTest {
         //given
         Menu menu = new Menu();
         Reservation reservation = new Reservation();
-        HashMap<String, Integer> orderMenu = new HashMap<>();
+        LinkedHashMap<String, Integer> orderMenu = new LinkedHashMap<>();
         orderMenu.put("제로콜라", 1);
         orderMenu.put("샴페인", 1);
         orderMenu.put("레드와인", 1);
@@ -173,7 +173,7 @@ public class ExceptionTest {
         //given
         Menu menu = new Menu();
         Reservation reservation = new Reservation();
-        HashMap<String, Integer> orderMenu = new HashMap<>();
+        LinkedHashMap<String, Integer> orderMenu = new LinkedHashMap<>();
         orderMenu.put("해산물파스타", 0);
 
         //when, then
@@ -188,7 +188,7 @@ public class ExceptionTest {
         //given
         Menu menu = new Menu();
         Reservation reservation = new Reservation();
-        HashMap<String, Integer> orderMenu = new HashMap<>();
+        LinkedHashMap<String, Integer> orderMenu = new LinkedHashMap<>();
         orderMenu.put("해산물파스타", 5);
         orderMenu.put("초코케이크", 5);
         orderMenu.put("레드와인", 11);
