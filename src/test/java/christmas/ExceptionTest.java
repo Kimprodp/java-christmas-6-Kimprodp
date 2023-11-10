@@ -3,6 +3,7 @@ package christmas;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 import christmas.domain.Calendar;
+import christmas.domain.Menu;
 import christmas.domain.Reservation;
 import christmas.controller.InputProcessor;
 import java.util.HashMap;
@@ -137,42 +138,14 @@ public class ExceptionTest {
     @Test
     void registerMenuExceptionByMenuNotExist() {
         //given
+        Menu menu = new Menu();
         Reservation reservation = new Reservation();
         HashMap<String, Integer> orderMenu = new HashMap<>();
+        orderMenu.put("해산물파스타", 1);
         orderMenu.put("라면", 1);
 
         //when, then
-        assertThatThrownBy(() -> reservation.registerOrderMenu(orderMenu))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
-    }
-
-    @DisplayName("주문 메뉴 등록 시, 주문 수량이 1개 미만인 경우 예외가 발생함")
-    @Test
-    void registerMenuExceptionByZeroQuantity() {
-        //given
-        Reservation reservation = new Reservation();
-        HashMap<String, Integer> orderMenu = new HashMap<>();
-        orderMenu.put("해산물파스타", 0);
-
-        //when, then
-        assertThatThrownBy(() -> reservation.registerOrderMenu(orderMenu))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
-    }
-
-    @DisplayName("주문 메뉴 등록 시, 총 주문 수량이 20개 초과할 경우 예외가 발생함")
-    @Test
-    void registerMenuExceptionByOverQuantity() {
-        //given
-        Reservation reservation = new Reservation();
-        HashMap<String, Integer> orderMenu = new HashMap<>();
-        orderMenu.put("해산물파스타", 5);
-        orderMenu.put("초코케이크", 5);
-        orderMenu.put("레드와인", 11);
-
-        //when, then
-        assertThatThrownBy(() -> reservation.registerOrderMenu(orderMenu))
+        assertThatThrownBy(() -> reservation.registerOrderMenu(menu, orderMenu))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
     }
@@ -181,6 +154,7 @@ public class ExceptionTest {
     @Test
     void registerMenuExceptionByAllBeverage() {
         //given
+        Menu menu = new Menu();
         Reservation reservation = new Reservation();
         HashMap<String, Integer> orderMenu = new HashMap<>();
         orderMenu.put("제로콜라", 1);
@@ -188,7 +162,39 @@ public class ExceptionTest {
         orderMenu.put("레드와인", 1);
 
         //when, then
-        assertThatThrownBy(() -> reservation.registerOrderMenu(orderMenu))
+        assertThatThrownBy(() -> reservation.registerOrderMenu(menu, orderMenu))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+    }
+
+    @DisplayName("주문 메뉴 등록 시, 주문 수량이 1개 미만인 경우 예외가 발생함")
+    @Test
+    void registerMenuExceptionByZeroQuantity() {
+        //given
+        Menu menu = new Menu();
+        Reservation reservation = new Reservation();
+        HashMap<String, Integer> orderMenu = new HashMap<>();
+        orderMenu.put("해산물파스타", 0);
+
+        //when, then
+        assertThatThrownBy(() -> reservation.registerOrderMenu(menu, orderMenu))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+    }
+
+    @DisplayName("주문 메뉴 등록 시, 총 주문 수량이 20개 초과할 경우 예외가 발생함")
+    @Test
+    void registerMenuExceptionByOverQuantity() {
+        //given
+        Menu menu = new Menu();
+        Reservation reservation = new Reservation();
+        HashMap<String, Integer> orderMenu = new HashMap<>();
+        orderMenu.put("해산물파스타", 5);
+        orderMenu.put("초코케이크", 5);
+        orderMenu.put("레드와인", 11);
+
+        //when, then
+        assertThatThrownBy(() -> reservation.registerOrderMenu(menu, orderMenu))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
     }
