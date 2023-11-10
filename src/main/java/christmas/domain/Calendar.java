@@ -4,10 +4,14 @@ import java.time.LocalDate;
 
 public class Calendar {
 
+    private static final int DEFAULT_YEAR = 2023;
+    private static final int DEFAULT_MONTH = 12;
+    private static final int DEFAULT_DAY = 1;
+
     private final LocalDate date;
 
     public Calendar() {
-        date = LocalDate.of(2023, 12, 1);
+        date = LocalDate.of(DEFAULT_YEAR, DEFAULT_MONTH, DEFAULT_DAY);
     }
 
     public int getYear() {
