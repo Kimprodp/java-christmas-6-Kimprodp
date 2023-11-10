@@ -23,7 +23,7 @@ public class Calendar {
     }
 
     public boolean isDateAvailable(int day) {
-        LocalDate startDate = date.withDayOfMonth(1);
+        LocalDate startDate = date.withDayOfMonth(DEFAULT_DAY);
         LocalDate lastDate = date.withDayOfMonth(date.lengthOfMonth());
         int startDay = startDate.getDayOfMonth();
         int lastDay = lastDate.getDayOfMonth();
