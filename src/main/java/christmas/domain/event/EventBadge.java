@@ -50,9 +50,17 @@ public class EventBadge {
     }
 
     private void applyBadge(LocalDate date, int benefitAmount) {
-        badge = Arrays.stream(Badge.values())
-                    .filter(badgeName -> benefitAmount >= badgeName.getConditionAmount() && isEventAvailable(date))
-                    .findFirst()
-                    .orElse(Badge.NONE);
+        if (benefitAmount < Badge.STAR.getConditionAmount() || !isEventAvailable(date)) {
+            badge = Badge.NONE;
+        }
+        if (benefitAmount >= Badge.STAR.getConditionAmount() && benefitAmount < Badge.TREE.getConditionAmount()) {
+            badge = Badge.STAR;
+        }
+        if (benefitAmount >= Badge.TREE.getConditionAmount() && benefitAmount < Badge.SANTA.getConditionAmount()) {
+            badge = Badge.TREE;
+        }
+        if (benefitAmount >= Badge.SANTA.getConditionAmount()) {
+            badge = Badge.SANTA;
+        }
     }
 }
