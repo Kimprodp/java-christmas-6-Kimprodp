@@ -3,44 +3,35 @@ package christmas.domain.event;
 import christmas.domain.Calendar;
 import java.time.LocalDate;
 
-public class ChristmasDdayDiscount extends Calendar implements Event {
+public class ChristmasDdayDiscount {
 
-    private final LocalDate startDate;
-    private final LocalDate endDate;
-    private final int minDiscountAmount;
-    private final int maxDiscountAmount;
-    private final int dailyDiscountAmount;
+    private final Calendar calendar;
+    private final int minDiscount;
+    private final int maxDiscount;
+    private final int dailyDiscount;
+    private int totalDiscount;
 
-    public ChristmasDdayDiscount() {
-        startDate = LocalDate.of(DEFAULT_YEAR, DEFAULT_MONTH, DEFAULT_DAY);
-        endDate = LocalDate.of(DEFAULT_YEAR, DEFAULT_MONTH, CHRISTMAS);
-        minDiscountAmount = 1_000;
-        maxDiscountAmount = 3_400;
-        dailyDiscountAmount = 100;
+    public ChristmasDdayDiscount(Calendar calendar) {
+        this.calendar = calendar;
+        minDiscount = 1_000;
+        maxDiscount = 3_400;
+        dailyDiscount = 100;
+        totalDiscount = 0;
     }
 
-    @Override
     public int getBenefit(LocalDate date) {
-        int discountAmount = 0;
-        if (isDateAvailable(date)) {
-            int day = date.getDayOfMonth();
-            discountAmount = calculateDiscount(day);
+        if (isEventAvailable(date)) {
+            applyDiscount(date);
         }
-        return discountAmount;
+        return totalDiscount;
     }
 
-    @Override
-    public boolean isDateAvailable(LocalDate date) {
-        return !date.isBefore(this.startDate) && !date.isAfter(this.endDate);
+    private boolean isEventAvailable(LocalDate date) {
+        return calendar.isBeforeChristmas(date);
     }
 
-    private int calculateDiscount(int day) {
-        int startDay = startDate.getDayOfMonth();
-        int discountAmount = ((day - startDay) * dailyDiscountAmount) + minDiscountAmount;
-        if (discountAmount > maxDiscountAmount) {
-            discountAmount = maxDiscountAmount;
-        }
-
-        return discountAmount;
+    private void applyDiscount(LocalDate date) {
+        int discountAmount = (date.getDayOfMonth() - 1) * dailyDiscount + minDiscount;
+        totalDiscount = Math.min(discountAmount, maxDiscount);
     }
 }
