@@ -1,7 +1,10 @@
 package christmas.domain;
 
+import christmas.domain.event.EventBadge.Badge;
+import christmas.service.EventService;
 import christmas.view.ErrorMessage;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 public class Reservation {
@@ -11,7 +14,13 @@ public class Reservation {
 
     private LocalDate visitDate;
     private LinkedHashMap<String, Integer> orderMenu;
+    private LinkedHashMap<String, Integer> giftItem;
+    private LinkedHashMap<String, Integer> benefitDetails;
     private int orderAmount;
+    private int benefitAmount;
+    private int discountAmount;
+    private int expectedPaymentAmount;
+    private Badge eventBadge;
 
     public void registerVisitDate(Calendar calendar, int day) {
         validateVisitDate(calendar, day);
@@ -26,18 +35,61 @@ public class Reservation {
         this.orderMenu = orderMenu;
     }
 
-    public int getVisitDay() {
-        return visitDate.getDayOfMonth();
+    public void applyEvent(EventService eventService, Menu menu) {
+        benefitDetails = eventService.applyBenefit(menu);
+        discountAmount = eventService.applyDiscount();
+        giftItem = eventService.applyGiftEvents();
+        calculateBenefitAmount();
+        calculateExpectedPaymentAmount();
+        eventBadge = eventService.applyEventBadge(benefitAmount);
+    }
+
+    public LocalDate getVisitDate() {
+        return visitDate;
     }
 
     public LinkedHashMap<String, Integer> getOrderMenu() {
         return orderMenu;
     }
 
+    public HashMap<String, Integer> getGiftItem() {
+        return giftItem;
+    }
+
+    public LinkedHashMap<String, Integer> getBenefitDetails() {
+        return benefitDetails;
+    }
+
+    public int getOrderAmount() {
+        return orderAmount;
+    }
+
+    public int getBenefitAmount() {
+        return benefitAmount;
+    }
+
+    public int getExpectedPaymentAmount() {
+        return expectedPaymentAmount;
+    }
+
+    public String getEventBadge() {
+        return eventBadge.getBadgeName();
+    }
+
     public void calculateOrderAmount(Menu menu) {
         orderAmount = orderMenu.keySet().stream()
-                .mapToInt(menu::getPrice)
+                .mapToInt(food -> menu.getPrice(food) * orderMenu.get(food))
                 .sum();
+    }
+
+    private void calculateBenefitAmount() {
+        benefitAmount = benefitDetails.values().stream()
+                .mapToInt(Integer::intValue)
+                .sum();
+    }
+
+    private void calculateExpectedPaymentAmount() {
+        expectedPaymentAmount = orderAmount - discountAmount;
     }
 
     private void validateVisitDate(Calendar calendar, int day) {
