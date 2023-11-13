@@ -3,6 +3,7 @@ package christmas.controller;
 import christmas.domain.Calendar;
 import christmas.domain.Menu;
 import christmas.domain.Reservation;
+import christmas.service.EventService;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 import java.util.LinkedHashMap;
@@ -15,6 +16,7 @@ public class Controller {
     private final Calendar calendar;
     private final Menu menu;
     private final Reservation reservation;
+    private final EventService eventService;
 
     public Controller() {
         inputView = new InputView();
@@ -23,6 +25,7 @@ public class Controller {
         calendar = new Calendar();
         menu = new Menu();
         reservation = new Reservation();
+        eventService = new EventService(calendar);
     }
 
     public void run() {
@@ -33,7 +36,8 @@ public class Controller {
         registerMenu(inputMenu);
 
         showOrderMenu();
-
+        runEventService();
+        showEventBenefits();
     }
 
     private void registerVisitDate(String input) {
@@ -57,5 +61,20 @@ public class Controller {
     private void showOrderMenu() {
         outputView.printEventPreview();
         outputView.printMenu(reservation.getOrderMenu());
+    }
+
+    private void runEventService() {
+        reservation.calculateOrderAmount(menu);
+        eventService.setReservationInfo(reservation);
+        reservation.applyEvent(eventService, menu);
+    }
+
+    private void showEventBenefits() {
+        outputView.printOrderAmount(reservation.getOrderAmount());
+        outputView.printGiftMenu(reservation.getGiftItem());
+        outputView.printBenefitDetails(reservation.getBenefitDetails());
+        outputView.printBenefitAmount(reservation.getBenefitAmount());
+        outputView.printExpectedPaymentAmount(reservation.getExpectedPaymentAmount());
+        outputView.printEventBadge(reservation.getEventBadge());
     }
 }
