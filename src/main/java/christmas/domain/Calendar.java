@@ -12,7 +12,7 @@ public class Calendar {
     protected static final int DEFAULT_MONTH = 12;
     protected static final int DEFAULT_DAY = 1;
     protected static final int LAST_DAY = 31;
-    protected static final int CHRISTMAS = 25;
+    protected static final LocalDate CHRISTMAS = LocalDate.of(DEFAULT_YEAR, DEFAULT_MONTH, 25);
 
     private final LocalDate startDate;
     private final LocalDate endDate;
@@ -29,7 +29,7 @@ public class Calendar {
         weekend = Arrays.asList(DayOfWeek.FRIDAY, DayOfWeek.SATURDAY);
 
         for (LocalDate date = startDate; date.isBefore(endDate.plusDays(1)); date = date.plusDays(1)) {
-            if (date.getDayOfWeek() == DayOfWeek.SUNDAY || date.getDayOfMonth() == CHRISTMAS) {
+            if (date.getDayOfWeek() == DayOfWeek.SUNDAY || date == CHRISTMAS) {
                 specialDay.add(date);
             }
         }
@@ -50,8 +50,12 @@ public class Calendar {
         return (day >= startDay && day <= lastDay);
     }
 
-    public boolean isDateAvailable(LocalDate date) {
+    public boolean isDecember(LocalDate date) {
         return !date.isBefore(startDate) && !date.isAfter(endDate);
+    }
+
+    public boolean isBeforeChristmas(LocalDate date) {
+        return !date.isBefore(startDate) && !date.isAfter(CHRISTMAS);
     }
 
     public boolean isWeekday(LocalDate date) {
