@@ -19,6 +19,10 @@ public enum Foods {
         return foodInfo.get(menuName);
     }
 
+    public boolean isContain(String menuName) {
+        return foodInfo.containsKey(menuName);
+    }
+
     private static HashMap<String, Integer> createAppetizer() {
         HashMap<String, Integer> appetizer = new HashMap<>();
         appetizer.put("양송이수프", 6_000);
@@ -49,9 +53,5 @@ public enum Foods {
         beverage.put("레드와인", 60_500);
         beverage.put("샴페인", 25_000);
         return beverage;
-    }
-
-    public boolean isContain(String menuName) {
-        return foodInfo.containsKey(menuName);
     }
 }
