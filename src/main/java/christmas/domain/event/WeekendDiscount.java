@@ -29,7 +29,7 @@ public class WeekendDiscount {
     }
 
     private boolean isEventAvailable(LocalDate date) {
-        return calendar.isWeekend(date);
+        return calendar.isWeekend(date) && calendar.isDecember(date);
     }
 
     private void applyDiscount(int mainQuantity) {

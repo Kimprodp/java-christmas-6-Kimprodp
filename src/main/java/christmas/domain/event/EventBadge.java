@@ -27,6 +27,13 @@ public class EventBadge {
         public int getConditionAmount() {
             return conditionAmount;
         }
+
+        public static Badge getBadgeType(int benefitAmount) {
+            return Arrays.stream(values())
+                    .filter(badge -> benefitAmount >= badge.conditionAmount)
+                    .findFirst()
+                    .orElse(NONE);
+        }
     }
 
     private final Calendar calendar;
@@ -50,17 +57,11 @@ public class EventBadge {
     }
 
     private void applyBadge(LocalDate date, int benefitAmount) {
-        if (benefitAmount < Badge.STAR.getConditionAmount() || !isEventAvailable(date)) {
+        if (isEventAvailable(date)) {
+            badge = Badge.getBadgeType(benefitAmount);
+        }
+        if (!isEventAvailable(date)) {
             badge = Badge.NONE;
-        }
-        if (benefitAmount >= Badge.STAR.getConditionAmount() && benefitAmount < Badge.TREE.getConditionAmount()) {
-            badge = Badge.STAR;
-        }
-        if (benefitAmount >= Badge.TREE.getConditionAmount() && benefitAmount < Badge.SANTA.getConditionAmount()) {
-            badge = Badge.TREE;
-        }
-        if (benefitAmount >= Badge.SANTA.getConditionAmount()) {
-            badge = Badge.SANTA;
         }
     }
 }

@@ -2,7 +2,6 @@ package christmas.domain.event;
 
 import christmas.domain.Calendar;
 import java.time.LocalDate;
-import java.util.HashMap;
 
 public class WeekdayDiscount {
 
@@ -30,7 +29,7 @@ public class WeekdayDiscount {
     }
 
     protected boolean isEventAvailable(LocalDate date) {
-        return calendar.isWeekday(date);
+        return calendar.isWeekday(date) && calendar.isDecember(date);
     }
 
     private void applyDiscount(int dessertQuantity) {

@@ -12,7 +12,6 @@ import christmas.domain.event.SpecialDiscount;
 import christmas.domain.event.WeekdayDiscount;
 import christmas.domain.event.WeekendDiscount;
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -63,7 +62,6 @@ public class EventService {
                 .mapToInt(Map.Entry::getValue)
                 .sum();
     }
-
 
     public LinkedHashMap<String, Integer> applyGiftEvents() {
         return giftEvent.getGift();

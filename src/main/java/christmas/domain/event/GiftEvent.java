@@ -5,7 +5,6 @@ import christmas.domain.Foods;
 import christmas.domain.Menu;
 import christmas.view.ErrorMessage;
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 public class GiftEvent {
