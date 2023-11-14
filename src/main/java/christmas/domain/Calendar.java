@@ -29,7 +29,7 @@ public class Calendar {
         weekend = Arrays.asList(DayOfWeek.FRIDAY, DayOfWeek.SATURDAY);
 
         for (LocalDate date = startDate; date.isBefore(endDate.plusDays(1)); date = date.plusDays(1)) {
-            if (date.getDayOfWeek() == DayOfWeek.SUNDAY || date == CHRISTMAS) {
+            if (date.getDayOfWeek() == DayOfWeek.SUNDAY || date.equals(CHRISTMAS)) {
                 specialDay.add(date);
             }
         }
