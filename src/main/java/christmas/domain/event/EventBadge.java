@@ -7,10 +7,10 @@ import java.util.Arrays;
 public class EventBadge {
 
     public enum Badge {
-        NONE("없음", 0),
-        STAR("별", 5_000),
+        SANTA("산타", 20_000),
         TREE("트리", 10_000),
-        SANTA("산타", 20_000);
+        STAR("별", 5_000),
+        NONE("없음", 0);
 
         private final String badgeName;
         private final int conditionAmount;
@@ -22,10 +22,6 @@ public class EventBadge {
 
         public String getBadgeName() {
             return badgeName;
-        }
-
-        public int getConditionAmount() {
-            return conditionAmount;
         }
 
         public static Badge getBadgeType(int benefitAmount) {
@@ -41,10 +37,6 @@ public class EventBadge {
 
     public EventBadge(Calendar calendar) {
         this.calendar = calendar;
-    }
-
-    public String getBadgeName(Badge badge) {
-        return badge.getBadgeName();
     }
 
     public Badge getBenefit(LocalDate date, int benefitAmount) {
