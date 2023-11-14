@@ -9,11 +9,12 @@ import org.junit.jupiter.api.Test;
 
 public class CalendarTest {
 
+    Calendar calendar = new Calendar();
+
     @DisplayName("주어진 날짜가 1일부터 31일 범위에 있을때 true를 반환함")
     @Test
     void ConfirmDayOfMonthByCorrectDay() {
         //given
-        Calendar calendar = new christmas.domain.Calendar();
         int day = 3;
         boolean checkDate;
 
@@ -28,7 +29,6 @@ public class CalendarTest {
     @Test
     void ConfirmDayOfMonthByIncorrectDay() {
         //given
-        Calendar calendar = new christmas.domain.Calendar();
         int day = 32;
         boolean checkDate;
 
@@ -43,7 +43,6 @@ public class CalendarTest {
     @Test
     void ConfirmDecemberByCorrectDate() {
         //given
-        Calendar calendar = new christmas.domain.Calendar();
         LocalDate date = LocalDate.of(2023, 12, 3);
         boolean checkDate;
 
@@ -58,7 +57,6 @@ public class CalendarTest {
     @Test
     void ConfirmDecemberByIncorrectDate() {
         //given
-        Calendar calendar = new christmas.domain.Calendar();
         LocalDate date = LocalDate.of(2023, 11, 3);
         boolean checkDate;
 
@@ -73,7 +71,6 @@ public class CalendarTest {
     @Test
     void ConfirmBeforeChristmasByCorrectDate() {
         //given
-        Calendar calendar = new christmas.domain.Calendar();
         LocalDate date = LocalDate.of(2023, 12, 3);
         boolean checkDate;
 
@@ -88,7 +85,6 @@ public class CalendarTest {
     @Test
     void ConfirmBeforeChristmasByIncorrectDate() {
         //given
-        Calendar calendar = new christmas.domain.Calendar();
         LocalDate date = LocalDate.of(2023, 12, 26);
         boolean checkDate;
 
@@ -103,7 +99,6 @@ public class CalendarTest {
     @Test
     void ConfirmWeekdayByCorrectDate() {
         //given
-        Calendar calendar = new christmas.domain.Calendar();
         LocalDate date = LocalDate.of(2023, 12, 3);
         boolean checkDate;
 
@@ -118,7 +113,6 @@ public class CalendarTest {
     @Test
     void ConfirmWeekdayByIncorrectDate() {
         //given
-        Calendar calendar = new christmas.domain.Calendar();
         LocalDate date = LocalDate.of(2023, 12, 1);
         boolean checkDate;
 
@@ -133,7 +127,6 @@ public class CalendarTest {
     @Test
     void ConfirmWeekendByCorrectDate() {
         //given
-        Calendar calendar = new christmas.domain.Calendar();
         LocalDate date = LocalDate.of(2023, 12, 1);
         boolean checkDate;
 
@@ -148,7 +141,6 @@ public class CalendarTest {
     @Test
     void ConfirmWeekendByIncorrectDate() {
         //given
-        Calendar calendar = new christmas.domain.Calendar();
         LocalDate date = LocalDate.of(2023, 12, 3);
         boolean checkDate;
 
@@ -163,7 +155,6 @@ public class CalendarTest {
     @Test
     void ConfirmSpecialDayByCorrectDate() {
         //given
-        Calendar calendar = new christmas.domain.Calendar();
         LocalDate date = LocalDate.of(2023, 12, 10);
         boolean checkDate;
 
@@ -178,7 +169,6 @@ public class CalendarTest {
     @Test
     void ConfirmSpecialDayByChristmas() {
         //given
-        Calendar calendar = new christmas.domain.Calendar();
         LocalDate date = LocalDate.of(2023, 12, 25);
         boolean checkDate;
 
@@ -193,7 +183,6 @@ public class CalendarTest {
     @Test
     void ConfirmSpecialDayByIncorrectDate() {
         //given
-        Calendar calendar = new christmas.domain.Calendar();
         LocalDate date = LocalDate.of(2023, 12, 11);
         boolean checkDate;
 

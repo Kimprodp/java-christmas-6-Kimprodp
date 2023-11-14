@@ -1,6 +1,7 @@
 package christmas;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.entry;
 
 import christmas.domain.Calendar;
 import christmas.domain.Menu;
@@ -18,11 +19,12 @@ import org.junit.jupiter.api.Test;
 
 public class EventTest {
 
+    Calendar calendar = new Calendar();
+
     @DisplayName("예약 일자가 3일일 때, 크리스마스 디데이 할인 금액은 1200원 이여야 함")
     @Test
     void ConfirmChristmasDiscountByDateBeforeChristmas() {
         //given
-        Calendar calendar = new Calendar();
         ChristmasDiscount christmasDiscount = new ChristmasDiscount(calendar);
         LocalDate date = LocalDate.of(2023, 12, 3);
         int christmasDiscountAmount;
@@ -38,7 +40,6 @@ public class EventTest {
     @Test
     void ConfirmChristmasDiscountByDateAtChristmas() {
         //given
-        Calendar calendar = new Calendar();
         ChristmasDiscount christmasDiscount = new ChristmasDiscount(calendar);
         LocalDate date = LocalDate.of(2023, 12, 25);
         int christmasDiscountAmount;
@@ -54,7 +55,6 @@ public class EventTest {
     @Test
     void ConfirmChristmasDiscountByDateAfterChristmas() {
         //given
-        Calendar calendar = new Calendar();
         ChristmasDiscount christmasDiscount = new ChristmasDiscount(calendar);
         LocalDate date = LocalDate.of(2023, 12, 31);
         int christmasDiscountAmount;
@@ -70,7 +70,6 @@ public class EventTest {
     @Test
     void ConfirmSpecialDiscountByDateWithSpecialDay() {
         //given
-        Calendar calendar = new Calendar();
         SpecialDiscount specialDiscount = new SpecialDiscount(calendar);
         LocalDate date = LocalDate.of(2023, 12, 3);
         int specialDiscountAmount;
@@ -86,7 +85,6 @@ public class EventTest {
     @Test
     void ConfirmSpecialDiscountByDateAtChristmas() {
         //given
-        Calendar calendar = new Calendar();
         SpecialDiscount specialDiscount = new SpecialDiscount(calendar);
         LocalDate date = LocalDate.of(2023, 12, 25);
         int specialDiscountAmount;
@@ -102,7 +100,6 @@ public class EventTest {
     @Test
     void ConfirmSpecialDiscountByDateWithinSpecialDay() {
         //given
-        Calendar calendar = new Calendar();
         SpecialDiscount specialDiscount = new SpecialDiscount(calendar);
         LocalDate date = LocalDate.of(2023, 12, 4);
         int specialDiscountAmount;
@@ -118,7 +115,6 @@ public class EventTest {
     @Test
     void ConfirmSpecialDiscountByDateWithinDecember() {
         //given
-        Calendar calendar = new Calendar();
         SpecialDiscount specialDiscount = new SpecialDiscount(calendar);
         LocalDate date = LocalDate.of(2023, 11, 3);
         int specialDiscountAmount;
@@ -134,7 +130,6 @@ public class EventTest {
     @Test
     void ConfirmWeekdayDiscountByWeekdayAndTwoDesertMenu() {
         //given
-        Calendar calendar = new Calendar();
         WeekdayDiscount weekdayDiscount = new WeekdayDiscount(calendar);
         LocalDate date = LocalDate.of(2023, 12, 3);
         int dessertQuantity = 2;
@@ -151,7 +146,6 @@ public class EventTest {
     @Test
     void ConfirmWeekdayDiscountByWeekdayAndNoneDesertMenu() {
         //given
-        Calendar calendar = new Calendar();
         WeekdayDiscount weekdayDiscount = new WeekdayDiscount(calendar);
         LocalDate date = LocalDate.of(2023, 12, 3);
         int dessertQuantity = 0;
@@ -168,7 +162,6 @@ public class EventTest {
     @Test
     void ConfirmWeekdayDiscountByWeekendAndTwoDesertMenu() {
         //given
-        Calendar calendar = new Calendar();
         WeekdayDiscount weekdayDiscount = new WeekdayDiscount(calendar);
         LocalDate date = LocalDate.of(2023, 12, 1);
         int dessertQuantity = 2;
@@ -185,7 +178,6 @@ public class EventTest {
     @Test
     void ConfirmWeekdayDiscountByWeekdayWithinDecemberAndTwoDesertMenu() {
         //given
-        Calendar calendar = new Calendar();
         WeekdayDiscount weekdayDiscount = new WeekdayDiscount(calendar);
         LocalDate date = LocalDate.of(2023, 11, 1);
         int dessertQuantity = 2;
@@ -202,7 +194,6 @@ public class EventTest {
     @Test
     void ConfirmWeekendDiscountByWeekendAndTwoMainMenu() {
         //given
-        Calendar calendar = new Calendar();
         WeekendDiscount weekendDiscount = new WeekendDiscount(calendar);
         LocalDate date = LocalDate.of(2023, 12, 8);
         int mainQuantity = 2;
@@ -219,7 +210,6 @@ public class EventTest {
     @Test
     void ConfirmWeekendDiscountByWeekendAndNoneMainMenu() {
         //given
-        Calendar calendar = new Calendar();
         WeekendDiscount weekendDiscount = new WeekendDiscount(calendar);
         LocalDate date = LocalDate.of(2023, 12, 8);
         int mainQuantity = 0;
@@ -236,7 +226,6 @@ public class EventTest {
     @Test
     void ConfirmWeekendDiscountByWeekdayAndTwoMainMenu() {
         //given
-        Calendar calendar = new Calendar();
         WeekendDiscount weekendDiscount = new WeekendDiscount(calendar);
         LocalDate date = LocalDate.of(2023, 12, 3);
         int mainQuantity = 2;
@@ -253,7 +242,6 @@ public class EventTest {
     @Test
     void ConfirmWeekendDiscountByWeekendWithinDecemberAndTwoMainMenu() {
         //given
-        Calendar calendar = new Calendar();
         WeekendDiscount weekendDiscount = new WeekendDiscount(calendar);
         LocalDate date = LocalDate.of(2023, 11, 4);
         int mainQuantity = 2;
@@ -270,7 +258,6 @@ public class EventTest {
     @Test
     void ConfirmGiftOfGiftEventByOrderAmount() {
         //given
-        Calendar calendar = new Calendar();
         Menu menu = new Menu();
         GiftEvent giftEvent = new GiftEvent(calendar);
         LocalDate date = LocalDate.of(2023, 12, 3);
@@ -282,16 +269,13 @@ public class EventTest {
         gift = giftEvent.getGift();
 
         //then
-        assertThat(gift.size()).isEqualTo(1);
-        assertThat(gift.containsKey("샴페인")).isTrue();
-        assertThat(gift.get("샴페인")).isEqualTo(1);
+        assertThat(gift).containsExactly(entry("샴페인", 1));
     }
 
     @DisplayName("할인 전 총주문 금액이 12만원 이상일 때, 샴페인 1개에 대한 혜택금이 주어져야 함")
     @Test
     void ConfirmDiscountOfGiftEventByOrderAmount() {
         //given
-        Calendar calendar = new Calendar();
         Menu menu = new Menu();
         GiftEvent giftEvent = new GiftEvent(calendar);
         LocalDate date = LocalDate.of(2023, 12, 3);
@@ -309,7 +293,6 @@ public class EventTest {
     @Test
     void ConfirmGiftOfGiftEventByLowOrderAmount() {
         //given
-        Calendar calendar = new Calendar();
         Menu menu = new Menu();
         GiftEvent giftEvent = new GiftEvent(calendar);
         LocalDate date = LocalDate.of(2023, 12, 3);
@@ -321,16 +304,13 @@ public class EventTest {
         gift = giftEvent.getGift();
 
         //then
-        assertThat(gift.size()).isEqualTo(1);
-        assertThat(gift.containsKey("샴페인")).isTrue();
-        assertThat(gift.get("샴페인")).isEqualTo(0);
+        assertThat(gift).containsExactly(entry("샴페인", 0));
     }
 
     @DisplayName("할인 전 총주문 금액이 12만원 미만일 때, 증정품에 대한 혜택금은 주어지지 않아야 함")
     @Test
     void ConfirmDiscountOfGiftEventByLowOrderAmount() {
         //given
-        Calendar calendar = new Calendar();
         Menu menu = new Menu();
         GiftEvent giftEvent = new GiftEvent(calendar);
         LocalDate date = LocalDate.of(2023, 12, 3);
@@ -348,7 +328,6 @@ public class EventTest {
     @Test
     void ConfirmGiftOfGiftEventByNotDecember() {
         //given
-        Calendar calendar = new Calendar();
         Menu menu = new Menu();
         GiftEvent giftEvent = new GiftEvent(calendar);
         LocalDate date = LocalDate.of(2023, 11, 3);
@@ -360,16 +339,13 @@ public class EventTest {
         gift = giftEvent.getGift();
 
         //then
-        assertThat(gift.size()).isEqualTo(1);
-        assertThat(gift.containsKey("샴페인")).isTrue();
-        assertThat(gift.get("샴페인")).isEqualTo(0);
+        assertThat(gift).containsExactly(entry("샴페인", 0));
     }
 
     @DisplayName("12월이 아닌 날의 할인 전 총주문 금액이 12만원 이상일 때, 증정품에 대한 혜택금은 주어지지 않아야 함")
     @Test
     void ConfirmDiscountOfGiftEventByNotDecember() {
         //given
-        Calendar calendar = new Calendar();
         Menu menu = new Menu();
         GiftEvent giftEvent = new GiftEvent(calendar);
         LocalDate date = LocalDate.of(2023, 11, 3);
@@ -387,7 +363,6 @@ public class EventTest {
     @Test
     void ConfirmNoneBadgeOfEventBadgeEventByBenefitAmount() {
         //given
-        Calendar calendar = new Calendar();
         EventBadge eventBadge = new EventBadge(calendar);
         LocalDate date = LocalDate.of(2023, 12, 3);
         int benefitAmount = 4999;
@@ -404,7 +379,6 @@ public class EventTest {
     @Test
     void ConfirmStarBadgeOfEventBadgeEventByBenefitAmount() {
         //given
-        Calendar calendar = new Calendar();
         EventBadge eventBadge = new EventBadge(calendar);
         LocalDate date = LocalDate.of(2023, 12, 3);
         int benefitAmount = 9999;
@@ -421,7 +395,6 @@ public class EventTest {
     @Test
     void ConfirmTreeBadgeOfEventBadgeEventByBenefitAmount() {
         //given
-        Calendar calendar = new Calendar();
         EventBadge eventBadge = new EventBadge(calendar);
         LocalDate date = LocalDate.of(2023, 12, 3);
         int benefitAmount = 19999;
@@ -438,7 +411,6 @@ public class EventTest {
     @Test
     void ConfirmSantaBadgeOfEventBadgeEventByBenefitAmount() {
         //given
-        Calendar calendar = new Calendar();
         EventBadge eventBadge = new EventBadge(calendar);
         LocalDate date = LocalDate.of(2023, 12, 3);
         int benefitAmount = 20000;
@@ -455,7 +427,6 @@ public class EventTest {
     @Test
     void ConfirmEventBadgeEventByDateWithinDecember() {
         //given
-        Calendar calendar = new Calendar();
         EventBadge eventBadge = new EventBadge(calendar);
         LocalDate date = LocalDate.of(2023, 11, 3);
         int benefitAmount = 20000;

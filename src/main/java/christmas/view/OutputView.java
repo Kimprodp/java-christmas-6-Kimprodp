@@ -86,5 +86,4 @@ public class OutputView {
         System.out.println(String.format(EVENT_BADGE, badgeName));
         System.out.println();
     }
-
 }

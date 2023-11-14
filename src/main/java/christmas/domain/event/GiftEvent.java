@@ -32,10 +32,6 @@ public class GiftEvent {
         return EVENT_NAME;
     }
 
-    public String getGiftName() {
-        return GIFT_NAME;
-    }
-
     public LinkedHashMap<String, Integer> getGift() {
         return gift;
     }
