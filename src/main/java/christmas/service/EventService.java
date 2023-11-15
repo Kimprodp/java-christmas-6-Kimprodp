@@ -50,13 +50,12 @@ public class EventService {
         benefitDetails.put(weekdayDiscount.getEventName(), weekdayDiscount.getBenefit(visitDate, dessertQuantity));
         benefitDetails.put(weekendDiscount.getEventName(), weekendDiscount.getBenefit(visitDate, mainQuantity));
         benefitDetails.put(specialDiscount.getEventName(), specialDiscount.getBenefit(visitDate));
-        benefitDetails.put(giftEvent.getEventName(),giftEvent.getBenefit(visitDate, menu, orderAmount));
+        benefitDetails.put(giftEvent.getEventName(), giftEvent.getBenefit(visitDate, menu, orderAmount));
         return benefitDetails;
     }
 
     public int applyDiscount() {
-        return benefitDetails.entrySet()
-                .stream()
+        return benefitDetails.entrySet().stream()
                 .filter(name -> !name.getKey().equals(giftEvent.getEventName()))
                 .mapToInt(Map.Entry::getValue)
                 .sum();

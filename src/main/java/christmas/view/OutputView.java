@@ -47,7 +47,6 @@ public class OutputView {
                 System.out.println(NONE);
             }
         });
-
         System.out.println();
     }
 

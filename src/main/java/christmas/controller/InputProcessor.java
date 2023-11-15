@@ -92,7 +92,7 @@ public class InputProcessor {
 
     private int validateNumberOfMenuQuantity(String input) {
         try {
-            return  Integer.parseInt(input);
+            return Integer.parseInt(input);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(ErrorMessage.MENU_ERROR);
         }

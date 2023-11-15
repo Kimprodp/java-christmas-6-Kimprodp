@@ -1,5 +1,6 @@
 package christmas.domain;
 
+import christmas.domain.Menu.Category;
 import christmas.domain.event.EventBadge.Badge;
 import christmas.service.EventService;
 import christmas.view.ErrorMessage;
@@ -99,19 +100,22 @@ public class Reservation {
     }
 
     private void validateAvailableOrder(Menu menu, LinkedHashMap<String, Integer> orderMenu) {
-        if (!orderMenu.keySet().stream().allMatch(menu::isAllCategoryContain)) {
+        if (!orderMenu.keySet().stream()
+                .allMatch(menu::isAllCategoryContain)) {
             throw new IllegalArgumentException(ErrorMessage.MENU_ERROR);
         }
     }
 
     private void validateAllBeverage(Menu menu, LinkedHashMap<String, Integer> orderMenu) {
-        if (orderMenu.keySet().stream().allMatch(menu::isAllBeverage)) {
+        if (orderMenu.keySet().stream()
+                .allMatch(menuName -> menu.isSpecificCategoryContain(Category.BEVERAGE, menuName))) {
             throw new IllegalArgumentException(ErrorMessage.MENU_ERROR);
         }
     }
 
     private void validateMinOrderQuantity(LinkedHashMap<String, Integer> orderMenu) {
-        if (orderMenu.values().stream().anyMatch(n -> n < MIN_ORDER_QUANTITY)) {
+        if (orderMenu.values().stream()
+                .anyMatch(menuQuantity -> menuQuantity < MIN_ORDER_QUANTITY)) {
             throw new IllegalArgumentException(ErrorMessage.MENU_ERROR);
         }
     }

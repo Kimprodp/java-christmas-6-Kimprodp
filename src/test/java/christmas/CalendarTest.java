@@ -1,6 +1,6 @@
 package christmas;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import christmas.domain.Calendar;
 import java.time.LocalDate;

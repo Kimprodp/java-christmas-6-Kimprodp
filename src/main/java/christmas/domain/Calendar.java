@@ -8,11 +8,11 @@ import java.util.List;
 
 public class Calendar {
 
-    protected static final int DEFAULT_YEAR = 2023;
-    protected static final int DEFAULT_MONTH = 12;
-    protected static final int DEFAULT_DAY = 1;
-    protected static final int LAST_DAY = 31;
-    protected static final LocalDate CHRISTMAS = LocalDate.of(DEFAULT_YEAR, DEFAULT_MONTH, 25);
+    public static final int DEFAULT_YEAR = 2023;
+    public static final int DEFAULT_MONTH = 12;
+    public static final int DEFAULT_DAY = 1;
+    public static final int LAST_DAY = 31;
+    public static final LocalDate CHRISTMAS = LocalDate.of(DEFAULT_YEAR, DEFAULT_MONTH, 25);
 
     private final LocalDate startDate;
     private final LocalDate endDate;

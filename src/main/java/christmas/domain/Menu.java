@@ -1,5 +1,6 @@
 package christmas.domain;
 
+import christmas.view.ErrorMessage;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -67,6 +68,10 @@ public class Menu {
     }
 
     public int getPrice(String foodName) {
+        if (!isAllCategoryContain(foodName)) {
+            throw new IllegalArgumentException(ErrorMessage.NONE_MENU);
+        }
+
         return categories.stream()
                 .filter(category -> category.isContain(foodName))
                 .findFirst()
@@ -83,11 +88,5 @@ public class Menu {
         return categories.stream()
                 .filter(category -> category.equals(categoryName))
                 .anyMatch(category -> category.isContain(foodName));
-    }
-
-    public boolean isAllBeverage(String foodName) {
-       return categories.stream()
-                .filter(category -> category.equals(Category.BEVERAGE))
-                .allMatch(category -> category.isContain(foodName));
     }
 }

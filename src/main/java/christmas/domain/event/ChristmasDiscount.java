@@ -35,7 +35,7 @@ public class ChristmasDiscount {
     }
 
     protected void applyDiscount(LocalDate date) {
-        int discountAmount = (date.getDayOfMonth() - 1) * DAILY_DISCOUNT + MIN_DISCOUNT;
+        int discountAmount = (date.getDayOfMonth() - Calendar.DEFAULT_DAY) * DAILY_DISCOUNT + MIN_DISCOUNT;
         totalDiscount = Math.min(discountAmount, MAX_DISCOUNT);
     }
 }

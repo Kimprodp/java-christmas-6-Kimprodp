@@ -13,17 +13,16 @@ public class GiftEvent {
     private static final int GIFT_QUANTITY_DEFAULT = 0;
     private static final int GIFT_QUANTITY_AVAILABLE = 1;
     private static final int TOTAL_DISCOUNT_DEFAULT = 0;
+    private static final int CONDITION_AMOUNT = 120_000;
 
     private final Calendar calendar;
     private final LinkedHashMap<String, Integer> gift = new LinkedHashMap<>();
-    private final int conditionAmount;
     private int totalDiscount;
 
     public GiftEvent(Calendar calendar, Menu menu) {
         this.calendar = calendar;
         validateGift(menu);
         gift.put(GIFT_NAME, GIFT_QUANTITY_DEFAULT);
-        conditionAmount = 120_000;
         totalDiscount = TOTAL_DISCOUNT_DEFAULT;
     }
 
@@ -44,7 +43,7 @@ public class GiftEvent {
     }
 
     private boolean isEventAvailable(LocalDate date, int orderAmount) {
-        return calendar.isDecember(date) && orderAmount >= conditionAmount;
+        return calendar.isDecember(date) && orderAmount >= CONDITION_AMOUNT;
     }
 
     private void applyGift() {
@@ -56,8 +55,8 @@ public class GiftEvent {
     }
 
     private void validateGift(Menu menu) {
-        if(!menu.isAllCategoryContain(GIFT_NAME)) {
-            throw new IllegalArgumentException(ErrorMessage.GIFT_ERROR);
+        if (!menu.isAllCategoryContain(GIFT_NAME)) {
+            throw new IllegalArgumentException(ErrorMessage.NONE_MENU);
         }
     }
 }

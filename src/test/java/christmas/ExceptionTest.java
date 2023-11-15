@@ -12,6 +12,9 @@ import org.junit.jupiter.api.Test;
 
 public class ExceptionTest {
 
+    Calendar calendar = new Calendar();
+    Menu menu = new Menu();
+
     @DisplayName("방문일 입력 시, 입력이 없을 경우 예외가 발생함")
     @Test
     void inputDateExceptionByEmpty() {
@@ -52,7 +55,6 @@ public class ExceptionTest {
     @Test
     void registerDateExceptionByUnderRange() {
         //given
-        Calendar calendar = new Calendar();
         Reservation reservation = new Reservation();
 
         //when, then
@@ -65,7 +67,6 @@ public class ExceptionTest {
     @Test
     void registerDateExceptionByOverRange() {
         //given
-        Calendar calendar = new Calendar();
         Reservation reservation = new Reservation();
 
         //when, then
@@ -138,7 +139,6 @@ public class ExceptionTest {
     @Test
     void registerMenuExceptionByMenuNotExist() {
         //given
-        Menu menu = new Menu();
         Reservation reservation = new Reservation();
         LinkedHashMap<String, Integer> orderMenu = new LinkedHashMap<>();
         orderMenu.put("해산물파스타", 1);
@@ -154,7 +154,6 @@ public class ExceptionTest {
     @Test
     void registerMenuExceptionByAllBeverage() {
         //given
-        Menu menu = new Menu();
         Reservation reservation = new Reservation();
         LinkedHashMap<String, Integer> orderMenu = new LinkedHashMap<>();
         orderMenu.put("제로콜라", 1);
@@ -171,7 +170,6 @@ public class ExceptionTest {
     @Test
     void registerMenuExceptionByZeroQuantity() {
         //given
-        Menu menu = new Menu();
         Reservation reservation = new Reservation();
         LinkedHashMap<String, Integer> orderMenu = new LinkedHashMap<>();
         orderMenu.put("해산물파스타", 0);
@@ -186,7 +184,6 @@ public class ExceptionTest {
     @Test
     void registerMenuExceptionByOverQuantity() {
         //given
-        Menu menu = new Menu();
         Reservation reservation = new Reservation();
         LinkedHashMap<String, Integer> orderMenu = new LinkedHashMap<>();
         orderMenu.put("해산물파스타", 5);
