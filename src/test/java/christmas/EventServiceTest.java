@@ -47,6 +47,26 @@ class EventServiceTest {
         );
     }
 
+    @DisplayName("총주문 금액이 10,000원 미만일 경우 이벤트는 적용되지 않아야 함")
+    @Test
+    void ConfirmEventApplicationByLowOrderAmount() {
+        //given
+        LinkedHashMap<String, Integer> orderMenu = new LinkedHashMap<>();
+        LinkedHashMap<String, Integer> benefitDetails;
+        orderMenu.put("타파스", 1);
+        orderMenu.put("제로콜라", 1);
+
+        //when
+        reservation.registerVisitDate(calendar, 25);
+        reservation.registerOrderMenu(menu, orderMenu);
+        reservation.calculateOrderAmount(menu);
+        eventService.setReservationInfo(reservation, menu);
+        benefitDetails = eventService.applyBenefit(menu);
+
+        //then
+        assertThat(benefitDetails).isEmpty();
+    }
+
     @DisplayName("결제 금액에서 차감될 할인 금액에는 증정 이벤트의 혜택은 제외되어야 함")
     @Test
     void ConfirmDiscountAmountByReservationInformation() {

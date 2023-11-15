@@ -16,6 +16,8 @@ import java.util.Map;
 
 public class EventService {
 
+    private static final int CONDITION_AMOUNT = 10_000;
+
     private final ChristmasDiscount christmasDiscount;
     private final WeekdayDiscount weekdayDiscount;
     private final WeekendDiscount weekendDiscount;
@@ -46,11 +48,14 @@ public class EventService {
     }
 
     public LinkedHashMap<String, Integer> applyBenefit(Menu menu) {
-        benefitDetails.put(christmasDiscount.getEventName(), christmasDiscount.getBenefit(visitDate));
-        benefitDetails.put(weekdayDiscount.getEventName(), weekdayDiscount.getBenefit(visitDate, dessertQuantity));
-        benefitDetails.put(weekendDiscount.getEventName(), weekendDiscount.getBenefit(visitDate, mainQuantity));
-        benefitDetails.put(specialDiscount.getEventName(), specialDiscount.getBenefit(visitDate));
-        benefitDetails.put(giftEvent.getEventName(), giftEvent.getBenefit(visitDate, menu, orderAmount));
+        if (checkOrderAmount()) {
+            benefitDetails.put(christmasDiscount.getEventName(), christmasDiscount.getBenefit(visitDate));
+            benefitDetails.put(weekdayDiscount.getEventName(), weekdayDiscount.getBenefit(visitDate, dessertQuantity));
+            benefitDetails.put(weekendDiscount.getEventName(), weekendDiscount.getBenefit(visitDate, mainQuantity));
+            benefitDetails.put(specialDiscount.getEventName(), specialDiscount.getBenefit(visitDate));
+            benefitDetails.put(giftEvent.getEventName(), giftEvent.getBenefit(visitDate, menu, orderAmount));
+        }
+
         return benefitDetails;
     }
 
@@ -89,5 +94,9 @@ public class EventService {
 
     private void setOrderAmount(Reservation reservation) {
         orderAmount = reservation.getOrderAmount();
+    }
+
+    private boolean checkOrderAmount() {
+        return orderAmount >= CONDITION_AMOUNT;
     }
 }
