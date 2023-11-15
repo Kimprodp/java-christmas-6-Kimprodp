@@ -25,7 +25,7 @@ public class Controller {
         calendar = new Calendar();
         menu = new Menu();
         reservation = new Reservation();
-        eventService = new EventService(calendar);
+        eventService = new EventService(calendar, menu);
     }
 
     public void run() {
@@ -65,7 +65,7 @@ public class Controller {
 
     private void runEventService() {
         reservation.calculateOrderAmount(menu);
-        eventService.setReservationInfo(reservation);
+        eventService.setReservationInfo(reservation, menu);
         reservation.applyEvent(eventService, menu);
     }
 

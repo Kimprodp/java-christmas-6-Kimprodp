@@ -1,7 +1,6 @@
 package christmas.domain.event;
 
 import christmas.domain.Calendar;
-import christmas.domain.Foods;
 import christmas.domain.Menu;
 import christmas.view.ErrorMessage;
 import java.time.LocalDate;
@@ -20,9 +19,9 @@ public class GiftEvent {
     private final int conditionAmount;
     private int totalDiscount;
 
-    public GiftEvent(Calendar calendar) {
+    public GiftEvent(Calendar calendar, Menu menu) {
         this.calendar = calendar;
-        validateGift();
+        validateGift(menu);
         gift.put(GIFT_NAME, GIFT_QUANTITY_DEFAULT);
         conditionAmount = 120_000;
         totalDiscount = TOTAL_DISCOUNT_DEFAULT;
@@ -56,8 +55,8 @@ public class GiftEvent {
         totalDiscount = GIFT_QUANTITY_AVAILABLE * menu.getPrice(GIFT_NAME);
     }
 
-    private void validateGift() {
-        if (!Foods.BEVERAGE.isContain(GIFT_NAME)) {
+    private void validateGift(Menu menu) {
+        if(!menu.isAllCategoryContain(GIFT_NAME)) {
             throw new IllegalArgumentException(ErrorMessage.GIFT_ERROR);
         }
     }

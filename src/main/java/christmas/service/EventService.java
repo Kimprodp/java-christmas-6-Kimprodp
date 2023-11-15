@@ -1,7 +1,6 @@
 package christmas.service;
 
 import christmas.domain.Calendar;
-import christmas.domain.Foods;
 import christmas.domain.Menu;
 import christmas.domain.Reservation;
 import christmas.domain.event.ChristmasDiscount;
@@ -30,19 +29,19 @@ public class EventService {
     private int dessertQuantity;
     private int orderAmount;
 
-    public EventService(Calendar calendar) {
+    public EventService(Calendar calendar, Menu menu) {
         christmasDiscount = new ChristmasDiscount(calendar);
         weekdayDiscount = new WeekdayDiscount(calendar);
         weekendDiscount = new WeekendDiscount(calendar);
         specialDiscount = new SpecialDiscount(calendar);
-        giftEvent = new GiftEvent(calendar);
+        giftEvent = new GiftEvent(calendar, menu);
         eventBadge = new EventBadge(calendar);
     }
 
-    public void setReservationInfo(Reservation reservation) {
+    public void setReservationInfo(Reservation reservation, Menu menu) {
         setVisitDate(reservation);
-        setMainQuantity(reservation);
-        setDessertQuantity(reservation);
+        setMainQuantity(reservation, menu);
+        setDessertQuantity(reservation, menu);
         setOrderAmount(reservation);
     }
 
@@ -75,16 +74,16 @@ public class EventService {
         visitDate = reservation.getVisitDate();
     }
 
-    private void setMainQuantity(Reservation reservation) {
+    private void setMainQuantity(Reservation reservation, Menu menu) {
         mainQuantity = reservation.getOrderMenu().entrySet().stream()
-                .filter(entry -> Foods.MAIN.isContain(entry.getKey()))
+                .filter(entry -> menu.isSpecificCategoryContain(Menu.Category.MAIN, entry.getKey()))
                 .mapToInt(Map.Entry::getValue)
                 .sum();
     }
 
-    private void setDessertQuantity(Reservation reservation) {
+    private void setDessertQuantity(Reservation reservation, Menu menu) {
         dessertQuantity = reservation.getOrderMenu().entrySet().stream()
-                .filter(entry -> Foods.DESSERT.isContain(entry.getKey()))
+                .filter(entry -> menu.isSpecificCategoryContain(Menu.Category.DESSERT, entry.getKey()))
                 .mapToInt(Map.Entry::getValue)
                 .sum();
     }

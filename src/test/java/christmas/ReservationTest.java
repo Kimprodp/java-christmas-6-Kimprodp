@@ -70,7 +70,7 @@ public class ReservationTest {
     void registerBenefitDetailsByApplyEvent() {
         //given
         Reservation reservation = new Reservation();
-        EventService eventService = new EventService(calendar);
+        EventService eventService = new EventService(calendar, menu);
         LinkedHashMap<String, Integer> orderMenu = new LinkedHashMap<>();
         int date = 2;
         orderMenu.put("티본스테이크", 1);
@@ -81,7 +81,7 @@ public class ReservationTest {
         reservation.registerVisitDate(calendar, date);
         reservation.registerOrderMenu(menu, orderMenu);
         reservation.calculateOrderAmount(menu);
-        eventService.setReservationInfo(reservation);
+        eventService.setReservationInfo(reservation, menu);
         reservation.applyEvent(eventService, menu);
 
         //then
@@ -99,7 +99,7 @@ public class ReservationTest {
     void registerGiftItemByApplyEvent() {
         //given
         Reservation reservation = new Reservation();
-        EventService eventService = new EventService(calendar);
+        EventService eventService = new EventService(calendar, menu);
         LinkedHashMap<String, Integer> orderMenu = new LinkedHashMap<>();
         int date = 2;
         orderMenu.put("티본스테이크", 1);
@@ -110,7 +110,7 @@ public class ReservationTest {
         reservation.registerVisitDate(calendar, date);
         reservation.registerOrderMenu(menu, orderMenu);
         reservation.calculateOrderAmount(menu);
-        eventService.setReservationInfo(reservation);
+        eventService.setReservationInfo(reservation, menu);
         reservation.applyEvent(eventService, menu);
 
         //then
@@ -122,7 +122,7 @@ public class ReservationTest {
     void calculateBenefitAmountByApplyEvent() {
         //given
         Reservation reservation = new Reservation();
-        EventService eventService = new EventService(calendar);
+        EventService eventService = new EventService(calendar, menu);
         LinkedHashMap<String, Integer> orderMenu = new LinkedHashMap<>();
         int date = 2;
         orderMenu.put("티본스테이크", 1);
@@ -133,7 +133,7 @@ public class ReservationTest {
         reservation.registerVisitDate(calendar, date);
         reservation.registerOrderMenu(menu, orderMenu);
         reservation.calculateOrderAmount(menu);
-        eventService.setReservationInfo(reservation);
+        eventService.setReservationInfo(reservation, menu);
         reservation.applyEvent(eventService, menu);
 
         //then
@@ -145,7 +145,7 @@ public class ReservationTest {
     void calculatePaymentAmountByApplyEvent() {
         //given
         Reservation reservation = new Reservation();
-        EventService eventService = new EventService(calendar);
+        EventService eventService = new EventService(calendar, menu);
         LinkedHashMap<String, Integer> orderMenu = new LinkedHashMap<>();
         int date = 2;
         orderMenu.put("티본스테이크", 1);
@@ -156,7 +156,7 @@ public class ReservationTest {
         reservation.registerVisitDate(calendar, date);
         reservation.registerOrderMenu(menu, orderMenu);
         reservation.calculateOrderAmount(menu);
-        eventService.setReservationInfo(reservation);
+        eventService.setReservationInfo(reservation, menu);
         reservation.applyEvent(eventService, menu);
 
         //then
@@ -168,7 +168,7 @@ public class ReservationTest {
     void registerEventBadgeByApplyEvent() {
         //given
         Reservation reservation = new Reservation();
-        EventService eventService = new EventService(calendar);
+        EventService eventService = new EventService(calendar, menu);
         LinkedHashMap<String, Integer> orderMenu = new LinkedHashMap<>();
         int date = 2;
         orderMenu.put("티본스테이크", 1);
@@ -179,7 +179,7 @@ public class ReservationTest {
         reservation.registerVisitDate(calendar, date);
         reservation.registerOrderMenu(menu, orderMenu);
         reservation.calculateOrderAmount(menu);
-        eventService.setReservationInfo(reservation);
+        eventService.setReservationInfo(reservation, menu);
         reservation.applyEvent(eventService, menu);
 
         //then

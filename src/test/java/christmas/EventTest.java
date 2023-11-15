@@ -20,6 +20,7 @@ import org.junit.jupiter.api.Test;
 public class EventTest {
 
     Calendar calendar = new Calendar();
+    Menu menu = new Menu();
 
     @DisplayName("예약 일자가 3일일 때, 크리스마스 디데이 할인 금액은 1200원 이여야 함")
     @Test
@@ -258,8 +259,7 @@ public class EventTest {
     @Test
     void ConfirmGiftOfGiftEventByOrderAmount() {
         //given
-        Menu menu = new Menu();
-        GiftEvent giftEvent = new GiftEvent(calendar);
+        GiftEvent giftEvent = new GiftEvent(calendar, menu);
         LocalDate date = LocalDate.of(2023, 12, 3);
         int orderAmount = 120000;
         LinkedHashMap<String, Integer> gift;
@@ -276,8 +276,7 @@ public class EventTest {
     @Test
     void ConfirmDiscountOfGiftEventByOrderAmount() {
         //given
-        Menu menu = new Menu();
-        GiftEvent giftEvent = new GiftEvent(calendar);
+        GiftEvent giftEvent = new GiftEvent(calendar, menu);
         LocalDate date = LocalDate.of(2023, 12, 3);
         int orderAmount = 120000;
         int GiftDiscountAmount;
@@ -293,8 +292,7 @@ public class EventTest {
     @Test
     void ConfirmGiftOfGiftEventByLowOrderAmount() {
         //given
-        Menu menu = new Menu();
-        GiftEvent giftEvent = new GiftEvent(calendar);
+        GiftEvent giftEvent = new GiftEvent(calendar, menu);
         LocalDate date = LocalDate.of(2023, 12, 3);
         int orderAmount = 119999;
         LinkedHashMap<String, Integer> gift;
@@ -311,8 +309,7 @@ public class EventTest {
     @Test
     void ConfirmDiscountOfGiftEventByLowOrderAmount() {
         //given
-        Menu menu = new Menu();
-        GiftEvent giftEvent = new GiftEvent(calendar);
+        GiftEvent giftEvent = new GiftEvent(calendar, menu);
         LocalDate date = LocalDate.of(2023, 12, 3);
         int orderAmount = 119999;
         int GiftDiscountAmount;
@@ -328,8 +325,7 @@ public class EventTest {
     @Test
     void ConfirmGiftOfGiftEventByNotDecember() {
         //given
-        Menu menu = new Menu();
-        GiftEvent giftEvent = new GiftEvent(calendar);
+        GiftEvent giftEvent = new GiftEvent(calendar, menu);
         LocalDate date = LocalDate.of(2023, 11, 3);
         int orderAmount = 120000;
         LinkedHashMap<String, Integer> gift;
@@ -346,8 +342,7 @@ public class EventTest {
     @Test
     void ConfirmDiscountOfGiftEventByNotDecember() {
         //given
-        Menu menu = new Menu();
-        GiftEvent giftEvent = new GiftEvent(calendar);
+        GiftEvent giftEvent = new GiftEvent(calendar, menu);
         LocalDate date = LocalDate.of(2023, 11, 3);
         int orderAmount = 120000;
         int GiftDiscountAmount;

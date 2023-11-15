@@ -17,7 +17,7 @@ class EventServiceTest {
     Menu menu = new Menu();
     Calendar calendar = new Calendar();
     Reservation reservation = new Reservation();
-    EventService eventService = new EventService(calendar);
+    EventService eventService = new EventService(calendar, menu);
 
     @DisplayName("예약 날짜와 주문한 메뉴의 정보로 각 이벤트의 혜택이 정확하게 적용되어야 함")
     @Test
@@ -34,7 +34,7 @@ class EventServiceTest {
         reservation.registerVisitDate(calendar, 25);
         reservation.registerOrderMenu(menu, orderMenu);
         reservation.calculateOrderAmount(menu);
-        eventService.setReservationInfo(reservation);
+        eventService.setReservationInfo(reservation, menu);
         benefitDetails = eventService.applyBenefit(menu);
 
         //then
@@ -62,7 +62,7 @@ class EventServiceTest {
         reservation.registerVisitDate(calendar, 25);
         reservation.registerOrderMenu(menu, orderMenu);
         reservation.calculateOrderAmount(menu);
-        eventService.setReservationInfo(reservation);
+        eventService.setReservationInfo(reservation, menu);
         reservation.applyEvent(eventService, menu);
         benefitDetails = eventService.applyBenefit(menu);
         int discountAmount = eventService.applyDiscount();
@@ -88,7 +88,7 @@ class EventServiceTest {
         reservation.registerVisitDate(calendar, 25);
         reservation.registerOrderMenu(menu, orderMenu);
         reservation.calculateOrderAmount(menu);
-        eventService.setReservationInfo(reservation);
+        eventService.setReservationInfo(reservation, menu);
         reservation.applyEvent(eventService, menu);
         giftMenu = eventService.applyGiftEvents();
 
@@ -111,7 +111,7 @@ class EventServiceTest {
         reservation.registerVisitDate(calendar, 25);
         reservation.registerOrderMenu(menu, orderMenu);
         reservation.calculateOrderAmount(menu);
-        eventService.setReservationInfo(reservation);
+        eventService.setReservationInfo(reservation, menu);
         reservation.applyEvent(eventService, menu);
         badge = eventService.applyEventBadge(reservation.getBenefitAmount());
 

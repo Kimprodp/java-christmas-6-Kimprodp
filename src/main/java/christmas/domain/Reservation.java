@@ -99,7 +99,7 @@ public class Reservation {
     }
 
     private void validateAvailableOrder(Menu menu, LinkedHashMap<String, Integer> orderMenu) {
-        if (!orderMenu.keySet().stream().allMatch(menu::isContain)) {
+        if (!orderMenu.keySet().stream().allMatch(menu::isAllCategoryContain)) {
             throw new IllegalArgumentException(ErrorMessage.MENU_ERROR);
         }
     }
